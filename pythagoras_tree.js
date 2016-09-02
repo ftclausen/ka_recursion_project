@@ -13,8 +13,6 @@ var pythagorasTree = function(string, subIteration) {
     var currentChar = "";
     var newString = "";
     while(string.length > 0) {
-        //println("String length (" + string + ")" + ": " + string.length);
-        //println("Remaining: " + string.substring(1));
         currentChar = string[0];
         switch(currentChar) {
             case "1":
@@ -28,13 +26,9 @@ var pythagorasTree = function(string, subIteration) {
             case "[":
                newString += "[";
                string = string.substring(1);
-               // println("About to recurse: newString: " + newString);
-               // println("About to recurse: remaining: " + string);
                var results = pythagorasTree(string, true);
                string = results.remaining;
                newString += results.transformedText;
-               // println("Finished recursion: newString: " + newString);
-               // println("Finished recursion: remaining: " + string);
                break;
             case "]":
                newString += "]";
@@ -45,7 +39,6 @@ var pythagorasTree = function(string, subIteration) {
                return returnVals;
         }
     }
-    println("New iteration");
     println(newString);
     return pythagorasTree(newString);
 };
@@ -54,10 +47,7 @@ var pythagorasTree = function(string, subIteration) {
 axiom:    0
 1st recursion:    1[0]0
 2nd recursion:    11[1[0]0]1[0]0
-                  11[1[0]0]1[0]0
 3rd recursion:    1111[11[1[0]0]1[0]0]11[1[0]0]1[0]0
-                  1111[11[1[0]0]1[0]0]11[1[0]0]1[0]0
 */
 
 pythagorasTree("0");
-println("==== END ====");
