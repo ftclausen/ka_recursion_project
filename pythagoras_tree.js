@@ -43,6 +43,11 @@ var pythagorasTree = function(string, subIteration) {
   return pythagorasTree(newString);
 };
 
+void lineAngle(int x, int y, float angle, float length) {
+	var angleOffset = 90;
+	var asRadians = radians(-angle + angleOffset);
+  line(x, y, x+cos(asRadians)*length, y-sin(asRadians)*length);
+}
 /*
 axiom:  0
 1st recursion:  1[0]0
@@ -50,4 +55,15 @@ axiom:  0
 3rd recursion:  1111[11[1[0]0]1[0]0]11[1[0]0]1[0]0
 */
 
-pythagorasTree("0");
+size(640, 480);
+// pythagorasTree("0");
+
+var length = 10;
+var x1 = width / 2;
+var y1 = height;
+var x2 = width / 2;
+var y2 = height - length;
+line(x1, y1, x2, y2);
+stroke(19, 48, 237);
+lineAngle(x2, y2, 45, length / 2);
+lineAngle(x2, y2, -45, length / 2);
