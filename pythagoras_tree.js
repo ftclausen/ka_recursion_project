@@ -2,14 +2,14 @@ var maxIterations = 7;
 var currentIteration = 0;
 
 var lineAngle = function(x, y, angle, length, drawFlag) {
-	var asRadians = radians(-angle + 90);
-	var newX = x + cos(asRadians)*length;
-	var newY = y - sin(asRadians)*length;
+  var asRadians = radians(-angle + 90);
+  var newX = x + cos(asRadians)*length;
+  var newY = y - sin(asRadians)*length;
   if (drawFlag) {
     line(x, y, newX, newY);
   }
-	var newCoords = { x: newX, y: newY };
-	return newCoords;
+  var newCoords = { x: newX, y: newY };
+  return newCoords;
 };
 
 var pythagorasTree = function(string, subIteration, fromX, fromY, angle, lineLength) {
