@@ -1,10 +1,9 @@
-var maxIterations = 7;
-var currentIteration = 0;
+var maxIterations = 8;
 
 var lineAngle = function(x, y, angle, length, drawFlag) {
-  var asRadians = radians(-angle + 90);
-  var newX = x + cos(asRadians)*length;
-  var newY = y - sin(asRadians)*length;
+  var asRadians = radians(-angle);
+  var newX = x + cos(angle)*length;
+  var newY = y - sin(angle)*length;
   if (drawFlag) {
     line(x, y, newX, newY);
   }
@@ -12,16 +11,12 @@ var lineAngle = function(x, y, angle, length, drawFlag) {
   return newCoords;
 };
 
-var pythagorasTree = function(string, subIteration, fromX, fromY, angle, lineLength) {
-  var drawFlag = false
-  // Because processing JS does not seem to like default parameters
-  if (!subIteration) {
-    currentIteration += 1;
-  }
+var pythagorasTree = function(string, currentIteration, subIteration, fromX, fromY, angle, lineLength) {
+  var drawFlag = false;
   if (currentIteration > maxIterations) {
     return;
   }
-  if (currentIteration == maxIterations) {
+  if (currentIteration === maxIterations) {
     drawFlag = true;
   }
   var currentChar = "";
@@ -47,9 +42,9 @@ var pythagorasTree = function(string, subIteration, fromX, fromY, angle, lineLen
       case "[":
         newString += "[";
         string = string.substring(1);
-        var results = pythagorasTree(string, true, newCoords.x, newCoords.y, angle + 45, lineLength);
+        var results = pythagorasTree(string, currentIteration, newCoords.x, newCoords.y, angle - 5 , lineLength);
         // We turn left (negative angle) when we return because then we encountered a "]"
-        angle -= 45;
+        angle -= 22;
         string = results.remaining;
         newString += results.transformedText;
         break;
@@ -63,7 +58,7 @@ var pythagorasTree = function(string, subIteration, fromX, fromY, angle, lineLen
     }
   }
   // println(newString);
-  return pythagorasTree(newString, false, width / 2, 420, 0, 4);
+  return pythagorasTree(newString, currentIteration + 1, width / 3, height, 75, 2.2);
 };
 
 /*
@@ -72,8 +67,5 @@ axiom:  0
 2nd recursion:  11[1[0]0]1[0]0
 3rd recursion:  1111[11[1[0]0]1[0]0]11[1[0]0]1[0]0
 */
-
-size(800, 420);
-length = 10;
-pythagorasTree("0", false, width / 2, 420, 0, 0);
-
+stroke(74, 148, 31);
+pythagorasTree("0", 0, width / 2, height, 0, 0);
