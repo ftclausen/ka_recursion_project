@@ -1,28 +1,28 @@
-var maxIterations = 4;
+var maxIterations = 7;
 var currentIteration = 0;
 
-var lineAngle = function(x, y, angle, length) {
+var lineAngle = function(x, y, angle, length, drawFlag) {
 	var asRadians = radians(-angle + 90);
 	var newX = x + cos(asRadians)*length;
 	var newY = y - sin(asRadians)*length;
-	// println("lineAngle: newX: " + newX);
-	// println("lineAngle: newY: " + newY);
-  line(x, y, newX, newY);
+  if (drawFlag) {
+    line(x, y, newX, newY);
+  }
 	var newCoords = { x: newX, y: newY };
-	println("lineAngle: returning: " + newCoords.x + ", " + newCoords.y);
 	return newCoords;
 };
 
-var pythagorasTree = function(string, subIteration, fromX, fromY, angle) {
-	println("pythagorasTree: fromX: " + fromX);
-	println("pythagorasTree: fromY: " + fromY);
+var pythagorasTree = function(string, subIteration, fromX, fromY, angle, lineLength) {
+  var drawFlag = false
   // Because processing JS does not seem to like default parameters
   if (!subIteration) {
     currentIteration += 1;
   }
   if (currentIteration > maxIterations) {
-    println("Reached max iterations");
     return;
+  }
+  if (currentIteration == maxIterations) {
+    drawFlag = true;
   }
   var currentChar = "";
   var newString = "";
@@ -31,25 +31,23 @@ var pythagorasTree = function(string, subIteration, fromX, fromY, angle) {
     currentChar = string[0];
     switch(currentChar) {
       case "1":
-				newCoords = lineAngle(fromX, fromY, angle, 10);
+        newCoords = lineAngle(fromX, fromY, angle, lineLength, drawFlag);
         fromX = newCoords.x;
         fromY = newCoords.y;
-				println("line for 1: " + fromX + ", " + fromY + ", " + "(angle " + angle + ")");
         newString += "11";
         string = string.substring(1);
         break;
       case "0":
-				newCoords = lineAngle(fromX, fromY, angle, 10);
+        newCoords = lineAngle(fromX, fromY, angle, lineLength, drawFlag);
         fromX = newCoords.x;
         fromY = newCoords.y;
-				println("line for 0: " + fromX + ", " + fromY + ", " + "(angle " + angle + ")");
         newString += "1[0]0";
         string = string.substring(1);
         break;
       case "[":
         newString += "[";
         string = string.substring(1);
-        var results = pythagorasTree(string, true, newCoords.x, newCoords.y, angle + 45);
+        var results = pythagorasTree(string, true, newCoords.x, newCoords.y, angle + 45, lineLength);
         // We turn left (negative angle) when we return because then we encountered a "]"
         angle -= 45;
         string = results.remaining;
@@ -64,8 +62,8 @@ var pythagorasTree = function(string, subIteration, fromX, fromY, angle) {
         return returnVals;
     }
   }
-  println(newString);
-  // return pythagorasTree(newString, false, width / 2, 400, 0);
+  // println(newString);
+  return pythagorasTree(newString, false, width / 2, 420, 0, 4);
 };
 
 /*
@@ -77,16 +75,5 @@ axiom:  0
 
 size(800, 420);
 length = 10;
-pythagorasTree("11111111[1111[11[1[0]0]1[0]0]11[1[0]0]1[0]0]1111[11[1[0]0]1[0]0]11[1[0]0]1[0]0", false, width / 2, 400, 0);
+pythagorasTree("0", false, width / 2, 420, 0, 0);
 
-/*
-var length = 10;
-var x1 = width / 2;
-var y1 = height;
-var x2 = width / 2;
-var y2 = height - length;
-line(x1, y1, x2, y2);
-stroke(19, 48, 237);
-lineAngle(x2, y2, 0, 45, length / 2);
-lineAngle(x2, y2, 0, -45, length / 2);
-*/
