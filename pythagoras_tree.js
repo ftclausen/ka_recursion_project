@@ -1,12 +1,15 @@
 var maxIterations = 7;
+var startAngle = 75;
 var leftAngle = -5;
 var rightAngle = 20;
 
+// start = 75
+// left -5
+// right 20
 
 var lineAngle = function(x, y, angle, length, drawFlag) {
-  var asRadians = radians(-angle);
-  var newX = x + cos(angle)*length;
-  var newY = y - sin(angle)*length;
+  var newX = x + cos(angle) * length;
+  var newY = y - sin(angle) * length;
   if (drawFlag) {
     line(x, y, newX, newY);
   }
@@ -17,7 +20,6 @@ var lineAngle = function(x, y, angle, length, drawFlag) {
 var pythagorasTree = function(string, currentIteration, fromX, fromY, angle, lineLength) {
   var drawFlag = false;
   if (currentIteration > maxIterations) {
-    println("Finished");
     return;
   }
   if (currentIteration === maxIterations) {
@@ -37,7 +39,9 @@ var pythagorasTree = function(string, currentIteration, fromX, fromY, angle, lin
         string = string.substring(1);
         break;
       case "0":
+        stroke(189, 121, 121);
         newCoords = lineAngle(fromX, fromY, angle, lineLength, drawFlag);
+        stroke(74, 148, 31);
         fromX = newCoords.x;
         fromY = newCoords.y;
         newString += "1[0]0";
@@ -62,7 +66,7 @@ var pythagorasTree = function(string, currentIteration, fromX, fromY, angle, lin
     }
   }
   // println(newString);
-  return pythagorasTree(newString, currentIteration + 1, width / 3, height, 75, 2);
+  return pythagorasTree(newString, currentIteration + 1, width / 3, height, startAngle, 2.5);
 };
 
 /*
