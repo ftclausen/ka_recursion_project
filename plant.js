@@ -1,12 +1,17 @@
+var axiom = "X";
 var maxIterations = 6;
-var startAngle = 25;
-var turnLeftAngle = 20;
+var startAngle = 20;
+var turnLeftAngle = 20; 
 var turnRightAngle = 20;
 
 // Wind blown reeds
-// s = 25
+// start = 25
 // left = 25
 // right = 10
+// "Regular" reed
+// start = 25
+// left = 20
+// right = 20
 var lineAngle = function(x, y, angle, length, drawFlag) {
   var asRadians = radians(-angle + 90);
   var newX = x + cos(asRadians)*length;
@@ -63,6 +68,7 @@ var drawPlant = function(string, currentIteration, fromX, fromY, angle, lineLeng
       case "[":
         newString += "[";
         string = string.substring(1);
+        stroke(fromY % 255, 133, 0);
         var results = drawPlant(string, currentIteration, fromX, fromY, angle, lineLength);
         // We turn left (negative angle) when we return because then we encountered a "]"
         string = results.remaining;
@@ -81,4 +87,6 @@ var drawPlant = function(string, currentIteration, fromX, fromY, angle, lineLeng
 
 size(1024, 700);
 length = 10;
-drawPlant("X", 0, width / 2, height, startAngle, 10);
+background(135, 206, 250, 70);
+stroke(87, 133, 61);
+drawPlant(axiom, 0, width / 2, height, startAngle, 10);
