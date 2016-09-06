@@ -28,6 +28,9 @@
  *
  */
 
+// The "axiom" or seed of the whole growth. You can insert the "grammer"
+// from above (e.g. "XF-+[]" to draw different things).
+var axiom = "X";
 // How many times to we want to iterate and apply the rules.
 var maxIterations = 6;
 // The base of the "plant" will be - adjust according to where it leans
@@ -179,4 +182,4 @@ stroke(87, 133, 61);
 // transformations recursively from there.
 // The startAngle and lineLength don't actually matter here since we only
 // draw on the last iteration
-drawPlant("X", 0, width / 3, height, startAngle, lineLength);
+drawPlant(axiom, 0, width / 3, height, startAngle, lineLength);
