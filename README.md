@@ -12,8 +12,12 @@ version of each project. E.g.
 * Plant - http://example.com/khan_academy_algorithms/plant.html
 * Pythagoras Tree - http://example.com/khan_academy_algorithms/pythagoras_tree.html
 
-See below for samples
+See below for examples
 
 ###  Plant
 
+![plant](https://github.com/ftclausen/ka_recursion_project/blob/master/examples/plant.png?raw=true)
+
 ### Pythagoras Tree
+
+![Pythagoras Tree](https://raw.githubusercontent.com/ftclausen/ka_recursion_project/master/examples/pythag.png)
