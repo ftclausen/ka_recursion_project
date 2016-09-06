@@ -16,7 +16,7 @@ See below for examples
 
 ###  Plant
 
-![plant](https://github.com/ftclausen/ka_recursion_project/blob/master/examples/plant.png?raw=true)
+![plant](https://github.com/ftclausen/ka_recursion_project/blob/master/examples/plant.png?raw=true =400px)
 
 ### Pythagoras Tree
 
