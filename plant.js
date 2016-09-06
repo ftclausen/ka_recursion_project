@@ -1,9 +1,9 @@
 /*
- * For this submission I have created my own implementation of the Fractal  * plant shown here:
+ * For this submission I have created my own implementation of the Fractal plant shown here:
  *
  * https://en.wikipedia.org/wiki/L-system#Example_7:_Fractal_plant
  *
- * This is an L-system with the following set up
+ * This is an L-system (see article above) with the following set up
  *
  * variables: X F (these are transformed by the rules)
  * constants: + - [ ] (These are not transformed by the rules but indicate angle and branching)
@@ -53,7 +53,7 @@ var lineLength = 2.5;
  */
 var lineAtAngle = function(x, y, angle, length, drawFlag) {
   /* We can view are new line as follows
-   * 1. Our new line is essentially the hypotenuse
+   * 1. Our new line is essentially the hypotenuse of a right triangle
    * 2. The x coordinate is solving for the adjacent line length
    * 3. The y coordinate is solving for the opposite line length
    * 4. We add the existing x and y to the resulting values from steps
@@ -145,8 +145,12 @@ var drawPlant = function(string, currentIteration, fromX, fromY, angle, lineLeng
         newString += "[";
         // Again, remove processed symbol from old string
         string = string.substring(1);
+        // To address the "adding colour" requirement let's change the
+        // RGB values to create a "fire plant".
+        stroke(fromY % 255, 133, 0);
         // And now recurse from this point using the snapshot of angle and
         // x, y positions as they are now
+        
         var results = drawPlant(string, currentIteration, fromX, fromY, angle, lineLength);
         // When we return from recursing (after having finished a branch 
         // of the tree) we can then update the old string with what's left         // after the branch has been processed.
@@ -177,7 +181,7 @@ var drawPlant = function(string, currentIteration, fromX, fromY, angle, lineLeng
 // Nice blue background with 70% opacity
 background(135, 206, 250, 70);
 // Green plant
-stroke(87, 133, 61);
+stroke(87, 133, 61, 70);
 // Start with the "axiom" or initial value of "X" and apply the 
 // transformations recursively from there.
 // The startAngle and lineLength don't actually matter here since we only
