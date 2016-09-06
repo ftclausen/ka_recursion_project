@@ -1,6 +1,5 @@
 /*
- * For this submission I have created my own implementation of the Fractal plant
- * shown here:
+ * For this submission I have created my own implementation of the Fractal  * plant shown here:
  *
  * https://en.wikipedia.org/wiki/L-system#Example_7:_Fractal_plant
  *
@@ -10,8 +9,7 @@
  * constants: + - [ ] (These are not transformed by the rules but indicate angle and branching)
  * start: X (the first value)
  * rules (how things are transformed): (X → F−[[X]+X]+F[+FX]−X), (F → FF)
- * angle: Adjustable - 20 degrees results in a nice plant but playing with it
- *        is quite fun too and can make the plant look suitably windswept.
+ * angle: Adjustable - 20 degrees results in a nice plant but playing with it is quite fun too and can make the plant look suitably windswept.
  *
  * where
  *
@@ -30,9 +28,9 @@
  *
  */
 
-// How many times to we want to iterate the rules. Known as "production rules"
+// How many times to we want to iterate and apply the rules.
 var maxIterations = 6;
-// Where the base of the "plant" will be - adjust according to where it leans
+// The base of the "plant" will be - adjust according to where it leans
 var startXPosition = width / 1.1;
 // The angle at which the main "stem" will lean
 var startAngle = 120;
@@ -45,9 +43,8 @@ var lineLength = 2.5;
 
 /*
  * We'd like to draw a line at an angle relative to the previously drawn
- * line. For this we'll use trigonometric functions which I read up on from
- * 
- * here: https://processing.org/tutorials/trig/
+ * line. For this we'll use trigonometric functions which I read up on 
+ * from here: https://processing.org/tutorials/trig/
  *
  * Reading that will make the below make more sense
  */
@@ -73,9 +70,10 @@ var lineAtAngle = function(x, y, angle, length, drawFlag) {
 };
 
 /*
- * Main function to actually draw the plant and construct the L-system "production string".
- * We construct the string from 0 to last-1 iterations. Then on the last iteration we draw the
- * resultant string.
+ * Main function to actually draw the plant and construct the L-system 
+ * "production string".
+ * We construct the string from 0 to last-1 iterations. Then on the last 
+ * iteration we draw the resultant string.
  */
 var drawPlant = function(string, currentIteration, fromX, fromY, angle, lineLength) {
   // We only want to draw on the last iteration
@@ -88,26 +86,29 @@ var drawPlant = function(string, currentIteration, fromX, fromY, angle, lineLeng
     drawFlag = true;
   }
 
-  // I'm pre-declaring some variables we'll be re-using extensively in the hopes that makes
-  // things run faster. 
+  // I'm pre-declaring some variables we'll be re-using extensively in the   // hopes that makes things run faster. 
   // 
-  // The new string being constructed by appling the transformation rules in the switch statement
+  // The new string being constructed by appling the transformation rules 
+  // in the switch statement
   var newString = "";
-  // The new endpoint of the current branch after a new line has been drawn at an angle
+  // The new endpoint of the current branch after a new line has been 
+  // drawn at an angle
   var newCoords;
   // Loop until we've processed all chars in the string
   while(string.length > 0) {
     switch(string[0]) {
       case "X":
-        // Apply the "X" transformation by appending the result to the new string
+        // Apply the "X" transformation by appending the result 
+        // to the new string
         newString += "F-[[X]+X]+F[+FX]-X";
-        // And remove the processed char from the old string by slicing everything
-        // from char 1 onwards (thereby excluding char 0)
+        // And remove the processed char from the old string 
+        // by slicing everything from char 1 onwards 
+        // (thereby excluding char 0)
         string = string.substring(1);
         break;
       case "F":
-        // The "F" L-System instruction, in this case, means move forward and draw
-        // a line at the current angle
+        // The "F" L-System instruction, in this case, means move forward 
+        // and draw a line at the current angle
         newCoords = lineAtAngle(fromX, fromY, angle, lineLength, drawFlag);
         fromX = newCoords.x;
         fromY = newCoords.y;
@@ -117,46 +118,49 @@ var drawPlant = function(string, currentIteration, fromX, fromY, angle, lineLeng
         string = string.substring(1);
         break;
       case "+":
-        // The "+" L-system instruction is not to draw anything but rather to
-        // turn left at a given angle (in degrees). So we add that to the angle.
+        // The "+" L-system instruction is not to draw anything but 
+        // rather to turn left at a given angle (in degrees). So we add 
+        // that to the angle.
         angle += turnLeftAngle;
         // Add to new string and remove from old as before
         newString += "+";
         string = string.substring(1);
         break;
       case "-":
-        // Similarly to the "+" the "-" turns right by a given angle. We subtract from
-        // the current angle to accomplish this.
+        // Similarly to the "+" the "-" turns right by a given angle. We 
+        // subtract from the current angle to accomplish this.
         angle -= turnRightAngle;
         newString += "-";
         string = string.substring(1);
         break;
       case "[":
-        // The "[" instruction is where we recurse down a new "branch" on the plant.
-        // This is like a mini version of the greater L-system where we apply all
-        // the same rules
+        // The "[" instruction is where we recurse down a new "branch" on 
+        // the plant.This is like a mini version of the greater L-system 
+        // where we apply all the same rules
         //
         // As before add the symbol to the new string being created
         newString += "[";
         // Again, remove processed symbol from old string
         string = string.substring(1);
-        // And now recurse from this point using the snapshot of angle and x, y positions
-        // as they are now
+        // And now recurse from this point using the snapshot of angle and
+        // x, y positions as they are now
         var results = drawPlant(string, currentIteration, fromX, fromY, angle, lineLength);
-        // When we return from recursing (after having finished a branch of the tree) we can
-        // then update the old string with what's left after the branch has been processed.
+        // When we return from recursing (after having finished a branch 
+        // of the tree) we can then update the old string with what's left         // after the branch has been processed.
         string = results.remaining;
-        // And also take the transformed branch text from that recursion and append to new
-        // string
+        // And also take the transformed branch text from that recursion 
+        // and append to new string
         newString += results.transformedText;
         break;
       case "]":
-        // This is our cue to return from this branch. So append the "]" to the new string
+        // This is our cue to return from this branch. So append the "]" 
+        // to the new string
         newString += "]";
         // Remove the now processed "]"`
         string = string.substring(1);
-        // Finally we recurn what remains of the unprocessed string as well as what we've
-        // actually processed. This will allow drawPlant() to continue smoothly.
+        // Finally we recurn what remains of the unprocessed string as 
+        // well as what we've actually processed. This will allow 
+        // drawPlant() to continue smoothly.
         var returnVals = { remaining: string, transformedText: newString };
         return returnVals;
     }
@@ -171,8 +175,8 @@ var drawPlant = function(string, currentIteration, fromX, fromY, angle, lineLeng
 background(135, 206, 250, 70);
 // Green plant
 stroke(87, 133, 61);
-// Start with the "axiom" or initial value of "X" and apply the transformations
-// recursively from there.
+// Start with the "axiom" or initial value of "X" and apply the 
+// transformations recursively from there.
 // The startAngle and lineLength don't actually matter here since we only
 // draw on the last iteration
 drawPlant("X", 0, width / 3, height, startAngle, lineLength);
