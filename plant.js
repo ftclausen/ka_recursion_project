@@ -1,5 +1,5 @@
 var axiom = "X";
-var coloured = true;
+var coloured = false;
 var maxIterations = 6;
 var startAngle = 25;
 var turnLeftAngle = 20; 
@@ -69,7 +69,9 @@ var drawPlant = function(string, currentIteration, fromX, fromY, angle, lineLeng
       case "[":
         newString += "[";
         string = string.substring(1);
-        stroke(fromY % 255, 133, 0);
+        if (coloured) {
+          stroke(fromY % 255, 133, 0);
+        }
         var results = drawPlant(string, currentIteration, fromX, fromY, angle, lineLength);
         // We turn left (negative angle) when we return because then we encountered a "]"
         string = results.remaining;
@@ -91,5 +93,5 @@ length = 10;
 background(135, 206, 250, 70);
 stroke(87, 133, 61);
 // A weight of 2 looks a bit less pixellated
-strokeWeight(2);
+strokeWeight(1.6);
 drawPlant(axiom, 0, width / 2, height, startAngle, 10);
