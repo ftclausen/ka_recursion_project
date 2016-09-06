@@ -1,6 +1,7 @@
 var axiom = "X";
+var coloured = true;
 var maxIterations = 6;
-var startAngle = 20;
+var startAngle = 25;
 var turnLeftAngle = 20; 
 var turnRightAngle = 20;
 
@@ -89,4 +90,5 @@ size(1024, 700);
 length = 10;
 background(135, 206, 250, 70);
 stroke(87, 133, 61);
+strokeWeight(2);
 drawPlant(axiom, 0, width / 2, height, startAngle, 10);
