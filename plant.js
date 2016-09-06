@@ -90,5 +90,6 @@ size(1024, 700);
 length = 10;
 background(135, 206, 250, 70);
 stroke(87, 133, 61);
+// A weight of 2 looks a bit less pixellated
 strokeWeight(2);
 drawPlant(axiom, 0, width / 2, height, startAngle, 10);
