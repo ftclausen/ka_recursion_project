@@ -1,16 +1,12 @@
 var maxIterations = 6;
-var startAngle = 25;
+var startXPosition = width / 1.1;
+var startAngle = 120;
 var turnLeftAngle = 20;
 var turnRightAngle = 20;
 
-// Wind blown reeds
-// s = 25
-// left = 25
-// right = 10
 var lineAngle = function(x, y, angle, length, drawFlag) {
-  var asRadians = radians(-angle + 90);
-  var newX = x + cos(asRadians)*length;
-  var newY = y - sin(asRadians)*length;
+  var newX = x + cos(angle) * length;
+  var newY = y - sin(angle) * length;
   if (drawFlag) {
     line(x, y, newX, newY);
   }
@@ -23,7 +19,7 @@ var drawPlant = function(string, currentIteration, fromX, fromY, angle, lineLeng
   if (currentIteration > maxIterations) {
     return;
   }
-  if (currentIteration == maxIterations) {
+  if (currentIteration === maxIterations) {
     drawFlag = true;
   }
   var currentChar = "";
@@ -44,6 +40,7 @@ var drawPlant = function(string, currentIteration, fromX, fromY, angle, lineLeng
         string = string.substring(1);
         break;
       case "F":
+        
         newCoords = lineAngle(fromX, fromY, angle, lineLength, drawFlag);
         fromX = newCoords.x;
         fromY = newCoords.y;
@@ -51,12 +48,12 @@ var drawPlant = function(string, currentIteration, fromX, fromY, angle, lineLeng
         string = string.substring(1);
         break;
       case "+":
-        angle += turnRightAngle;
+        angle += turnLeftAngle;
         newString += "+";
         string = string.substring(1);
         break;
       case "-":
-        angle -= turnLeftAngle;
+        angle -= turnRightAngle;
         newString += "-";
         string = string.substring(1);
         break;
@@ -76,9 +73,9 @@ var drawPlant = function(string, currentIteration, fromX, fromY, angle, lineLeng
     }
   }
   // println(newString);
-  return drawPlant(newString, currentIteration + 1, width / 2, height, startAngle, 3);
+  return drawPlant(newString, currentIteration + 1, startXPosition, height, startAngle, 2.5);
 };
 
-size(1024, 700);
-length = 10;
-drawPlant("X", 0, width / 2, height, startAngle, 10);
+background(135, 206, 250, 70);
+stroke(87, 133, 61);
+drawPlant("X", 0, width / 3, height, startAngle, 10);
