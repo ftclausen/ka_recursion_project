@@ -1,6 +1,6 @@
 # What is this?
 
-This is my Khan Academy home work repo.
+This is my Khan Academy homework repo.
 
 ## Recursion
 
@@ -9,8 +9,8 @@ This is my Khan Academy home work repo.
 Pop this repo on a web accessible location somewhere and navigate to the html
 version of each project. E.g.
 
-* Plant - http://example.com/khan_academy_algorithms/plant.html
-* Pythagoras Tree - http://example.com/khan_academy_algorithms/pythagoras_tree.html
+* Plant - http://example.com/khan_academy_homework/plant.html
+* Pythagoras Tree - http://example.com/khan_academy_homework/pythagoras_tree.html
 
 See below for examples
 
