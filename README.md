@@ -2,7 +2,7 @@
 
 This is my Khan Academy homework repo.
 
-# Branches
+# Git Branches
 
 The Processing JS set-up on Khan Academy does not quite use coordinates in the
 same way as "vanilla" Processing JS so I've made a
@@ -10,6 +10,10 @@ same way as "vanilla" Processing JS so I've made a
 KA version of Processing JS.
 
 ## Recursion
+
+The recursion homework references
+[L-systems](https://en.wikipedia.org/wiki/L-system) so I thought it a fun
+challenge to implement some examples from the Wikipedia page myself.
 
 ### Set up
 
