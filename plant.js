@@ -40,7 +40,7 @@ var canvasHeight = 800;
 // The base of the "plant" will be - adjust according to where it leans
 var startXPosition = canvasWidth / 2;
 // The angle at which the main "stem" will lean
-var startAngle = 0;
+var startAngle = 25;
 // Turn left by this amount when encountering a "-"
 var turnLeftAngle = 20;
 // Turn right by this amount when encountering a "+"
