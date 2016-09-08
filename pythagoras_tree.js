@@ -1,4 +1,4 @@
-var maxIterations = 7;
+var maxIterations = 8;
 var currentIteration = 0;
 
 var lineAngle = function(x, y, angle, length, drawFlag) {
@@ -38,7 +38,9 @@ var pythagorasTree = function(string, subIteration, fromX, fromY, angle, lineLen
         string = string.substring(1);
         break;
       case "0":
+        stroke(255, 0, 0, 80);
         newCoords = lineAngle(fromX, fromY, angle, lineLength, drawFlag);
+        stroke(87, 133, 61);
         fromX = newCoords.x;
         fromY = newCoords.y;
         newString += "1[0]0";
@@ -47,9 +49,9 @@ var pythagorasTree = function(string, subIteration, fromX, fromY, angle, lineLen
       case "[":
         newString += "[";
         string = string.substring(1);
-        var results = pythagorasTree(string, true, newCoords.x, newCoords.y, angle + 45, lineLength);
+        var results = pythagorasTree(string, true, newCoords.x, newCoords.y, angle + 20, lineLength);
         // We turn left (negative angle) when we return because then we encountered a "]"
-        angle -= 45;
+        angle -= 10;
         string = results.remaining;
         newString += results.transformedText;
         break;
@@ -63,7 +65,7 @@ var pythagorasTree = function(string, subIteration, fromX, fromY, angle, lineLen
     }
   }
   // println(newString);
-  return pythagorasTree(newString, false, width / 2, 420, 0, 4);
+  return pythagorasTree(newString, false, width / 2, 1000, 0, 4);
 };
 
 /*
@@ -73,7 +75,10 @@ axiom:  0
 3rd recursion:  1111[11[1[0]0]1[0]0]11[1[0]0]1[0]0
 */
 
-size(800, 420);
+size(800, 1000);
 length = 10;
+background(135, 206, 250, 70);
+stroke(87, 133, 61);
+strokeWeight(1.6);
 pythagorasTree("0", false, width / 2, 420, 0, 0);
 

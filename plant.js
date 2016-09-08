@@ -1,9 +1,9 @@
 var axiom = "X";
-var coloured = false;
+var coloured = true;
 var maxIterations = 6;
 var startAngle = 25;
-var turnLeftAngle = 20; 
-var turnRightAngle = 20;
+var turnLeftAngle = 15; 
+var turnRightAngle = 15;
 
 // Wind blown reeds
 // start = 25
@@ -24,7 +24,7 @@ var lineAngle = function(x, y, angle, length, drawFlag) {
   return newCoords;
 };
 
-var drawPlant = function(string, currentIteration, fromX, fromY, angle, lineLength) {
+var drawPlant = function(string, currentIteration, fromX, fromY, angle, lineLength, forwardCount) {
   var drawFlag = false; 
   if (currentIteration > maxIterations) {
     return;
@@ -36,20 +36,15 @@ var drawPlant = function(string, currentIteration, fromX, fromY, angle, lineLeng
   var newString = "";
   var newCoords;
 
-  var hardStop = 0;
   while(string.length > 0) {
     currentChar = string[0];
-    if (hardStop > 1000) {
-      println("Crash!");
-      return;
-    }
-    hardStop += 1;
     switch(currentChar) {
       case "X":
         newString += "F-[[X]+X]+F[+FX]-X";
         string = string.substring(1);
         break;
       case "F":
+        forwardCount += 0.9;
         newCoords = lineAngle(fromX, fromY, angle, lineLength, drawFlag);
         fromX = newCoords.x;
         fromY = newCoords.y;
@@ -70,9 +65,9 @@ var drawPlant = function(string, currentIteration, fromX, fromY, angle, lineLeng
         newString += "[";
         string = string.substring(1);
         if (coloured) {
-          stroke(fromY % 255, 133, 0);
+          stroke(165, 42 + forwardCount, 42);
         }
-        var results = drawPlant(string, currentIteration, fromX, fromY, angle, lineLength);
+        var results = drawPlant(string, currentIteration, fromX, fromY, angle, lineLength, forwardCount);
         // We turn left (negative angle) when we return because then we encountered a "]"
         string = results.remaining;
         newString += results.transformedText;
@@ -85,13 +80,12 @@ var drawPlant = function(string, currentIteration, fromX, fromY, angle, lineLeng
     }
   }
   // println(newString);
-  return drawPlant(newString, currentIteration + 1, width / 2, height, startAngle, 3);
+  return drawPlant(newString, currentIteration + 1, width / 2, height, startAngle, 3, 0);
 };
 
 size(1024, 700);
 length = 10;
 background(135, 206, 250, 70);
 stroke(87, 133, 61);
-// A weight of 2 looks a bit less pixellated
 strokeWeight(1.6);
-drawPlant(axiom, 0, width / 2, height, startAngle, 10);
+drawPlant(axiom, 0, width / 2, height, startAngle, 10, 0);
