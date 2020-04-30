@@ -27,7 +27,7 @@ See below for examples
 
 ###  Plant - plant.js
 
-![plant](https://github.com/ftclausen/ka_recursion_project/blob/master/examples/plant.png?raw=true =400px)
+<img src="https://github.com/ftclausen/ka_recursion_project/blob/master/examples/plant.png" width="800" height="600/>
 
 ### Pythagoras Tree - pythagoras_tree.js
 
